@@ -1,64 +1,6 @@
-<html ng-app="app">
+<html>
 <head>
-    <script type="text/javascript">
-
-    var myWebSocket;
-
-
-    function connectToWS() {
-        if (myWebSocket !== undefined) {
-            myWebSocket.close()
-        }
-
-        myWebSocket = new WebSocket("wss://api.whitebit.com/ws");
-
-        myWebSocket.onmessage = function(event) {
-            var leng;
-            if (event.data.size === undefined) {
-                leng = event.data.length
-            } else {
-                leng = event.data.size
-            }
-            console.log("onmessage. size: " + leng + ", content: " + event.data);
-            var container = document.getElementById("NotifContainer");
-
-            const eventData = JSON.parse(event.data)
-
-            container.innerHTML += `<button class="w-full text-left py-2 focus:outline-none focus-visible:bg-indigo-50">
-                        <div class="flex items-center">
-                            <img class="rounded-full items-start flex-shrink-0 mr-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBJDkXVDDjXUydyywDs4YDKOUDjUSpHsRG9Wmw3_4jWA&s" width="32" height="32" alt="weather" />
-                            <div>
-                                <h4 class="text-sm font-semibold text-gray-900">${eventData.alert_text}</h4>
-                                <div class="text-[13px]">Issued at ${eventData.issue_time}</div>
-                                <div class="text-[13px]">Location: ${eventData.location}</div>
-                            </div>
-                        </div>
-                    </button>`;
-        }
-
-        myWebSocket.onopen = function(evt) {
-            console.log("onopen.");
-        };
-
-        myWebSocket.onclose = function(evt) {
-            console.log("onclose.");
-        };
-
-        myWebSocket.onerror = function(evt) {
-            console.log("Error!");
-        };
-    }
-
-    // function sendMsg() {
-    //     var message = document.getElementById("myMessage").value;
-    //     myWebSocket.send(message);
-    // }
-
-    function closeConn() {
-        myWebSocket.close();
-    }
-
-    </script>
+<script src="app.js"></script>
 </head>
 <body>
     
@@ -81,44 +23,43 @@
 <section class="flex flex-col justify-center antialiased bg-gray-50 text-gray-600 min-h-screen p-4">
     <div class="h-full">
         <!-- Card -->
-        <div class="relative max-w-[640px] mx-auto bg-white shadow-lg rounded-lg">
+        <div class="relative max-w-[1024px] mx-auto bg-white shadow-lg rounded-lg">
             <!-- Card header -->
             <header class="pt-6 pb-4 px-5 border-b border-gray-200">
                 <div class="flex justify-between items-center mb-3">
                     <!-- Image + name -->
                     <div class="flex items-center">
                         <a class="inline-flex items-start mr-3" href="#0">
-                            <svg class="w-10 h-10 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M15.133 10.632v-1.8a5.407 5.407 0 0 0-4.154-5.262.955.955 0 0 0 .021-.106V1.1a1 1 0 0 0-2 0v2.364a.944.944 0 0 0 .021.106 5.406 5.406 0 0 0-4.154 5.262v1.8C4.867 13.018 3 13.614 3 14.807 3 15.4 3 16 3.538 16h12.924C17 16 17 15.4 17 14.807c0-1.193-1.867-1.789-1.867-4.175Zm-13.267-.8a1 1 0 0 1-1-1 9.424 9.424 0 0 1 2.517-6.39A1.001 1.001 0 1 1 4.854 3.8a7.431 7.431 0 0 0-1.988 5.037 1 1 0 0 1-1 .995Zm16.268 0a1 1 0 0 1-1-1A7.431 7.431 0 0 0 15.146 3.8a1 1 0 0 1 1.471-1.354 9.425 9.425 0 0 1 2.517 6.391 1 1 0 0 1-1 .995ZM6.823 17a3.453 3.453 0 0 0 6.354 0H6.823Z"></path>
-                            </svg>
+                            <svg class="w-10 h-10 text-gray-800 dark:text-white" height="16" width="16" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM323.8 202.5c-4.5-6.6-11.9-10.5-19.8-10.5s-15.4 3.9-19.8 10.5l-87 127.6L170.7 297c-4.6-5.7-11.5-9-18.7-9s-14.2 3.3-18.7 9l-64 80c-5.8 7.2-6.9 17.1-2.9 25.4s12.4 13.6 21.6 13.6h96 32H424c8.9 0 17.1-4.9 21.2-12.8s3.6-17.4-1.4-24.7l-120-176zM112 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"/></svg>
                         </a>
                         <div class="pr-1">
                             <a class="inline-flex text-gray-800 hover:text-gray-900" href="#0">
-                                <h2 class="text-xl leading-snug font-bold">Connect to AAA/SRD Websocket</h2>
+                                <h2 class="text-xl leading-snug font-bold">Batch Image Generation AI</h2>
                             </a>
-                            <a class="block text-sm font-medium hover:text-indigo-500" href="#0">wss://me8oedlwf0.execute-api.us-east-1.amazonaws.com/dev</a>
+                            <a class="block text-sm font-medium hover:text-indigo-500" href="#0">Supported by ComftyUI</a>
                         </div>
                     </div>
-                    <button onclick="connectToWS()" class="right-5 inline-flex items-center text-sm font-medium text-white bg-indigo-500 hover:bg-indigo-600 rounded-full text-center px-3 py-2 shadow-lg focus:outline-none focus-visible:ring-2">
-                        <svg class="w-3 h-3 fill-current text-indigo-300 flex-shrink-0 mr-2" viewBox="0 0 12 12">
-                            <path d="M11.866.146a.5.5 0 0 0-.437-.139c-.26.044-6.393 1.1-8.2 2.913a4.145 4.145 0 0 0-.617 5.062L.305 10.293a1 1 0 1 0 1.414 1.414L7.426 6l-2 3.923c.242.048.487.074.733.077a4.122 4.122 0 0 0 2.933-1.215c1.81-1.809 2.87-7.94 2.913-8.2a.5.5 0 0 0-.139-.439Z" />
-                        </svg>
-                        <span>Connect</span>
-                    </button>
-                    <button onclick="closeConn()" class="ml-1 right-5 inline-flex items-center text-sm font-medium text-white bg-red-500 hover:bg-red-600 rounded-full text-center px-3 py-2 shadow-lg focus:outline-none focus-visible:ring-2">
-                        <svg class="w-3 h-3 fill-current text-red-300 flex-shrink-0 mr-2" viewBox="0 0 12 12">
-                            <path d="M11.866.146a.5.5 0 0 0-.437-.139c-.26.044-6.393 1.1-8.2 2.913a4.145 4.145 0 0 0-.617 5.062L.305 10.293a1 1 0 1 0 1.414 1.414L7.426 6l-2 3.923c.242.048.487.074.733.077a4.122 4.122 0 0 0 2.933-1.215c1.81-1.809 2.87-7.94 2.913-8.2a.5.5 0 0 0-.139-.439Z" />
-                        </svg>
-                        <span>Disconnect</span>
-                    </button>
+                    <div class="flex items-center" id="connectBtnContainer">
+                        <button onclick="connectToWS()" class="right-5 inline-flex items-center text-sm font-medium text-white bg-green-500 hover:bg-green-600 rounded-full text-center px-3 py-2 shadow-lg focus:outline-none focus-visible:ring-2" id="connectBtn">
+                            <svg class="w-3 h-3 fill-current text-green-300 flex-shrink-0 mr-2" height="16" width="12" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M96 0C78.3 0 64 14.3 64 32v96h64V32c0-17.7-14.3-32-32-32zM288 0c-17.7 0-32 14.3-32 32v96h64V32c0-17.7-14.3-32-32-32zM32 160c-17.7 0-32 14.3-32 32s14.3 32 32 32v32c0 77.4 55 142 128 156.8V480c0 17.7 14.3 32 32 32s32-14.3 32-32V412.8C297 398 352 333.4 352 256V224c17.7 0 32-14.3 32-32s-14.3-32-32-32H32z"/></svg>
+                            <span>Connect</span>
+                        </button>
+                    </div>
                 </div>
                 
                 <!-- Meta -->
             </header>
             <!-- Card body -->
             <div class="py-3 px-5">
-                <h3 class="text-xs font-semibold uppercase text-gray-400 mb-1">Notifications</h3>
                 <!-- Chat list -->
+                <div class="flex justify-between items-center mb-3">
+                    <!-- Image + name -->
+                    <button onclick="addInputPrompt()" class="ml-1 right-5 inline-flex items-center text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 rounded-lg text-center px-3 py-2 shadow-lg focus:outline-none focus-visible:ring-2">
+                        <svg class="w-3 h-3 fill-current text-white-300 flex-shrink-0 mr-2" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+                        <span>Add to Queue</span>
+                    </button>
+                </div>
+                
                 <div id="NotifContainer" class="divide-y divide-gray-200">
                     <!-- User -->
                     <!-- <button class="w-full text-left py-2 focus:outline-none focus-visible:bg-indigo-50">
