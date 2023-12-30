@@ -1,6 +1,9 @@
 var myWebSocket;
+
+// simple states
 var isConnected = false;
-// toggleConnectBtn();
+var isModalOpen = false;
+var isBusy = false;
 
 function toggleConnection(con){
     isConnected = con;
@@ -23,7 +26,7 @@ function connectToWS() {
         myWebSocket.close()
     }
 
-    myWebSocket = new WebSocket(`ws://127.0.0.1:8188/ws?clientId={$window.name}`);
+    myWebSocket = new WebSocket(`ws://127.0.0.1:8188/ws?clientId=${window.name}`);
 
     myWebSocket.onmessage = function(event) {
         var leng;
@@ -33,20 +36,18 @@ function connectToWS() {
             leng = event.data.size
         }
         console.log("onmessage. size: " + leng + ", content: " + event.data);
-        var container = document.getElementById("NotifContainer");
-
         const eventData = JSON.parse(event.data)
 
-        container.innerHTML += `<button class="w-full text-left py-2 focus:outline-none focus-visible:bg-indigo-50">
-                    <div class="flex items-center">
-                        <img class="rounded-full items-start flex-shrink-0 mr-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBJDkXVDDjXUydyywDs4YDKOUDjUSpHsRG9Wmw3_4jWA&s" width="32" height="32" alt="weather" />
-                        <div>
-                            <h4 class="text-sm font-semibold text-gray-900">${eventData.alert_text}</h4>
-                            <div class="text-[13px]">Issued at ${eventData.issue_time}</div>
-                            <div class="text-[13px]">Location: ${eventData.location}</div>
-                        </div>
-                    </div>
-                </button>`;
+        // container.innerHTML += `<button class="w-full text-left py-2 focus:outline-none focus-visible:bg-indigo-50">
+        //             <div class="flex items-center">
+        //                 <img class="rounded-full items-start flex-shrink-0 mr-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBJDkXVDDjXUydyywDs4YDKOUDjUSpHsRG9Wmw3_4jWA&s" width="32" height="32" alt="weather" />
+        //                 <div>
+        //                     <h4 class="text-sm font-semibold text-gray-900">${eventData.alert_text}</h4>
+        //                     <div class="text-[13px]">Issued at ${eventData.issue_time}</div>
+        //                     <div class="text-[13px]">Location: ${eventData.location}</div>
+        //                 </div>
+        //             </div>
+        //         </button>`;
     }
 
     myWebSocket.onopen = function(evt) {
@@ -74,16 +75,43 @@ function closeConn() {
     myWebSocket.close();
 }
 
+// modal control
+function toggleModal(con){
+    isModalOpen = con;
+    var modal = document.getElementById("defaultModal");
+    if(isModalOpen){
+        modal.classList.remove('hidden');
+    }else{
+        modal.classList.add('hidden');
+    }
+}
+function openModal(){
+    toggleModal(true);
+}
+
+function closeModal(){
+    toggleModal(false);
+}
+
 // prompt creation
 function addInputPrompt(){
-    container.innerHTML += `<button class="w-full text-left py-2 focus:outline-none focus-visible:bg-indigo-50">
-    <div class="flex items-center">
-        <img class="rounded-full items-start flex-shrink-0 mr-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBJDkXVDDjXUydyywDs4YDKOUDjUSpHsRG9Wmw3_4jWA&s" width="32" height="32" alt="weather" />
-        <div>
-            <h4 class="text-sm font-semibold text-gray-900">${eventData.alert_text}</h4>
-            <div class="text-[13px]">Issued at ${eventData.issue_time}</div>
-            <div class="text-[13px]">Location: ${eventData.location}</div>
+    closeModal();
+    var container = document.getElementById("notifContainer");
+    container.innerHTML += ` <li class="flex p-2 border border-blue-200">
+    <div class="ml-4 flex flex-1 flex-col">
+      <div>
+        <div class="flex text-base font-medium text-gray-900">
+          <h2>
+            <a href="#">Image Generation</a>
+          </h2>
         </div>
+        <p class="mt-1 text-sm text-gray-500">Salmon</p>
+      </div>
+      <div class="flex flex-row-reverse items-end justify-between text-sm">    
+        <div class="flex">
+          <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+        </div>
+      </div>
     </div>
-</button>`;
+  </li>`;
 }

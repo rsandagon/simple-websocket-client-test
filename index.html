@@ -4,7 +4,7 @@
 </head>
 <body>
     
-<script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
+<script src="https://cdn.tailwindcss.com"></script>
 
 <!-- Specify a custom Tailwind configuration -->
 <script type="tailwind-config">
@@ -20,8 +20,36 @@
 </script>
 
 <!-- Snippet -->
-<section class="flex flex-col justify-center antialiased bg-gray-50 text-gray-600 min-h-screen p-4">
+<section class="flex flex-col justify-center antialiased bg-gray-50 text-gray-600 min-h-screen p-4 bg-[url('img/bg2.jpg')] bg-cover" style="background-image: url('img/bg2.jpg');">
     <div class="h-full">
+        <!--- Modal -->
+        <div id="defaultModal" aria-hidden="true" class="overflow-x-hidden overflow-y-auto fixed bg-gray-100 bg-opacity-80 top=0 left-0 right-0 inset-0 z-50 justify-center items-center">
+            <div class="relative w-full max-w-full px-4 mx-auto md:h-auto">
+                <!-- Modal content -->
+                <div class="flex flex-col bg-white rounded-lg shadow">
+                    <!-- Modal header -->
+                    <div class="h-auto flex items-start justify-between p-5 border-b rounded-t">
+                        <h3 class="text-gray-900 text-xl lg:text-2xl font-semibold">
+                            Workflow
+                        </h3>
+                        <button onclick="closeModal()" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="default-modal">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="grow p-6 space-y-6">
+                        <div class="w-full min-w-[200px]">
+                            <textarea id="message" rows="4" class="block w-full h-[500px]  text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
+                          </div>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="h-auto flex-none flex space-x-2 items-center p-6 border-t border-gray-200 rounded-b">
+                        <button onclick="addInputPrompt()" data-modal-toggle="default-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">I accept</button>
+                        <button onclick="closeModal()" data-modal-toggle="default-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Decline</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Card -->
         <div class="relative max-w-[1024px] mx-auto bg-white shadow-lg rounded-lg">
             <!-- Card header -->
@@ -30,13 +58,13 @@
                     <!-- Image + name -->
                     <div class="flex items-center">
                         <a class="inline-flex items-start mr-3" href="#0">
-                            <svg class="w-10 h-10 text-gray-800 dark:text-white" height="16" width="16" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM323.8 202.5c-4.5-6.6-11.9-10.5-19.8-10.5s-15.4 3.9-19.8 10.5l-87 127.6L170.7 297c-4.6-5.7-11.5-9-18.7-9s-14.2 3.3-18.7 9l-64 80c-5.8 7.2-6.9 17.1-2.9 25.4s12.4 13.6 21.6 13.6h96 32H424c8.9 0 17.1-4.9 21.2-12.8s3.6-17.4-1.4-24.7l-120-176zM112 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"/></svg>
+                            <svg class="w-10 h-10 text-gray-800" height="16" width="16" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM323.8 202.5c-4.5-6.6-11.9-10.5-19.8-10.5s-15.4 3.9-19.8 10.5l-87 127.6L170.7 297c-4.6-5.7-11.5-9-18.7-9s-14.2 3.3-18.7 9l-64 80c-5.8 7.2-6.9 17.1-2.9 25.4s12.4 13.6 21.6 13.6h96 32H424c8.9 0 17.1-4.9 21.2-12.8s3.6-17.4-1.4-24.7l-120-176zM112 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"/></svg>
                         </a>
                         <div class="pr-1">
                             <a class="inline-flex text-gray-800 hover:text-gray-900" href="#0">
                                 <h2 class="text-xl leading-snug font-bold">Batch Image Generation AI</h2>
                             </a>
-                            <a class="block text-sm font-medium hover:text-indigo-500" href="#0">Supported by ComftyUI</a>
+                            <a class="block text-sm font-medium hover:text-indigo-500" href="#0">Supported by ComfyUI server</a>
                         </div>
                     </div>
                     <div class="flex items-center" id="connectBtnContainer">
@@ -50,29 +78,49 @@
                 <!-- Meta -->
             </header>
             <!-- Card body -->
+            
             <div class="py-3 px-5">
-                <!-- Chat list -->
-                <div class="flex justify-between items-center mb-3">
-                    <!-- Image + name -->
-                    <button onclick="addInputPrompt()" class="ml-1 right-5 inline-flex items-center text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 rounded-lg text-center px-3 py-2 shadow-lg focus:outline-none focus-visible:ring-2">
-                        <svg class="w-3 h-3 fill-current text-white-300 flex-shrink-0 mr-2" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
-                        <span>Add to Queue</span>
-                    </button>
-                </div>
-                
-                <div id="NotifContainer" class="divide-y divide-gray-200">
-                    <!-- User -->
-                    <!-- <button class="w-full text-left py-2 focus:outline-none focus-visible:bg-indigo-50">
-                        <div class="flex items-center">
-                            <img class="rounded-full items-start flex-shrink-0 mr-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBJDkXVDDjXUydyywDs4YDKOUDjUSpHsRG9Wmw3_4jWA&s" width="32" height="32" alt="weather" />
-                            <div>
-                                <h4 class="text-sm font-semibold text-gray-900">Marie Zulfikar</h4>
-                                <div class="text-[13px]">The video chat ended · 2hrs</div>
-                            </div>
-                        </div>
-                    </button> -->
+                <!-- Prompt list -->
+                <div class="flex items-center mb-3">
+                    <div class="flex items-start justify-between">
+
+                    <button onclick="openModal()" class="ml-1 right-1 inline-flex items-center text-sm font-medium text-white bg-gray-500 hover:bg-gray-600 rounded-lg text-center px-2 py-2 shadow-lg focus:outline-none focus-visible:ring-2">
+                        <svg class="w-6 h-6 fill-current text-white-300 flex-shrink-0 mr-2" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+                        <span class="text-l">Add Prompt</span>
+                      </button>
                 </div>
             </div>
+                
+                <div class="divide-y divide-gray-200 ">
+                    <ul id="notifContainer" role="list" class="divide-y divide-gray-200">
+                        <!-- <li class="flex p-6">
+                          <div class="ml-4 flex flex-1 flex-col">
+                            <div>
+                              <div class="flex text-base font-medium text-gray-900">
+                                <h2>
+                                  <a href="#">Image Generation</a>
+                                </h2>
+                              </div>
+                              <p class="mt-1 text-sm text-gray-500">Salmon</p>
+                            </div>
+                            <div class="flex flex-row-reverse items-end justify-between text-sm">    
+                              <div class="flex">
+                                <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                              </div>
+                            </div>
+                          </div>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+            <footer class="pt-6 pb-4 px-5 border-t border-gray-200">
+                <div class="flex flex-row-reverse items-center mb-3">
+                    <button onclick="addInputPrompt()" class="ml-1 right-5 inline-flex items-center text-sm font-medium text-white bg-green-500 hover:bg-green-600 rounded-lg text-center px-3 py-2 shadow-lg focus:outline-none focus-visible:ring-2">
+                        <svg class="w-3 h-3 fill-current text-white-300 flex-shrink-0 mr-2" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+                        <span>Queue Prompts</span>
+                    </button>
+                </div>
+            </footer>
         </div>
     </div>
 </section>
